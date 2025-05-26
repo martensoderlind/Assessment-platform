@@ -1,14 +1,7 @@
-import express from "express";
+import { createApp } from "./app";
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.use(express.json());
-
-app.get("/", (_req, res) => {
-  res.send("backend is running!");
-});
-
-app.listen(PORT, () => {
-  console.log(`Servern körs på http://localhost:${PORT}`);
+createApp().listen(port, () => {
+  console.log(`server listening on http://localhost:${port}/`);
 });
