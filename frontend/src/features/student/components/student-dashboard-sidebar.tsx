@@ -1,14 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Bell,
-  Calendar,
-  FileText,
-  GraduationCap,
-  MessageSquare,
-} from "lucide-react";
 import RecentActivity from "./recent-activity";
-import { act } from "react";
 import UpcomingScheduleContainer from "./upcoming-schedule-container";
 import StudentQuickActions from "./student-quick-actions";
 
