@@ -17,3 +17,19 @@ export type UpcomingEvent = {
   startTime: string;
   endTime: string;
 };
+
+export type Course = {
+  id: string;
+  name: string;
+  abbreviation: string;
+  lecture: Lecture;
+  exams: Date;
+};
+
+export type Lecture = {
+  id: string;
+  subjectId: string;
+  date: Date;
+  subject: string;
+  teacher: string;
+};
