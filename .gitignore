@@ -22,10 +22,10 @@ resources/.arch-internal-preview.css
 /frontend/pnpm-debug.log*
 /frontend/lerna-debug.log*
 
-/frontend/node_modules
-/frontend/dist
-/frontend/dist-ssr
-/frontend/*.local
+/**/node_modules
+/**/dist
+/**/dist-ssr
+/**/*.local
 
 # Editor directories and files
 /frontend/.vscode/*
@@ -37,3 +37,4 @@ resources/.arch-internal-preview.css
 /frontend/*.njsproj
 /frontend/*.sln
 /frontend/*.sw?
+
