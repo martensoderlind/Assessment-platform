@@ -7,20 +7,20 @@ export default function StudentDashboardSidebar() {
   const recentActivity = [
     {
       type: "assignment",
-      title: "Matematik - Algebra uppgift",
-      time: "2 timmar sedan",
+      title: "Math - Algebra assignment",
+      time: "2 hours ago",
       status: "pending",
     },
     {
       type: "announcement",
-      title: "Ny läsanvisning i Svenska",
-      time: "4 timmar sedan",
+      title: "new reading assignment",
+      time: "4 hours ago",
       status: "new",
     },
     {
       type: "grade",
-      title: "Historia - Essä bedömd",
-      time: "1 dag sedan",
+      title: "History - essay graded",
+      time: "1 day ago",
       status: "completed",
     },
   ];
