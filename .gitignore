@@ -38,3 +38,4 @@ resources/.arch-internal-preview.css
 /frontend/*.sln
 /frontend/*.sw?
 
+.env
