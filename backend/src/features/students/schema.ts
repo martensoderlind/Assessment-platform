@@ -1,59 +1,61 @@
 // db/schema.ts
-import {
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  integer,
-  varchar,
-  primaryKey,
-  foreignKey,
-  unique,
-} from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import { sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  name: varchar().notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: text("password_hash").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+export const classes = pgTable("classes", {
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  name: varchar("name", { length: 100 }).notNull(),
+});
+
 export const students = pgTable("students", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id")
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  userId: uuid("user_id")
     .notNull()
     .references(() => users.id),
-  classId: integer("class_id").references(() => classes.id),
+  classId: uuid("class_id").references(() => classes.id),
 });
 
 export const teachers = pgTable("teachers", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id")
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  userId: uuid("user_id")
     .notNull()
     .references(() => users.id),
 });
 
-export const classes = pgTable("classes", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 100 }).notNull(),
-});
-
 export const subjects = pgTable("subjects", {
-  id: serial("id").primaryKey(),
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
   name: varchar("name", { length: 100 }).notNull(),
-  abbreviation: varchar().notNull(),
 });
 
 export const lectures = pgTable("lectures", {
-  id: serial("id").primaryKey(),
-  classId: integer("class_id")
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  classId: uuid("class_id")
     .notNull()
     .references(() => classes.id),
-  subjectId: integer("subject_id")
+  subjectId: uuid("subject_id")
     .notNull()
     .references(() => subjects.id),
-  teacherId: integer("teacher_id")
+  teacherId: uuid("teacher_id")
     .notNull()
     .references(() => teachers.id),
   scheduledAt: timestamp("scheduled_at").notNull(),
