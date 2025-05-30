@@ -8,34 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  BookOpen,
-  Clock,
-  Users,
-  FileText,
-  CheckCircle,
-  GraduationCap,
-  ChevronRight,
-  Filter,
-} from "lucide-react";
+import { Users, CheckCircle, ChevronRight } from "lucide-react";
 import StudentHeader from "./course-header";
+import SummarizeCards from "./summarize-cards";
+import { colors, gradeColors } from "../type";
 
-const colors = {
-  blue: "bg-blue-50 text-blue-700",
-  green: "bg-green-50 text-green-700",
-  purple: "bg-purple-50 text-purple-700",
-  orange: "bg-orange-50 text-orange-700",
-  red: "bg-red-50 text-red-700",
-};
-
-const gradeColors = {
-  A: "bg-green-100 text-green-800",
-  B: "bg-blue-100 text-blue-800",
-  C: "bg-yellow-100 text-yellow-800",
-  D: "bg-orange-100 text-orange-800",
-  F: "bg-red-100 text-red-800",
-};
 export default function StudentCoursesPage() {
   const [activeTab, setActiveTab] = useState("active");
 
@@ -154,70 +131,10 @@ export default function StudentCoursesPage() {
       <StudentHeader />
 
       <div className="container mx-auto px-4 py-8">
-        {/* Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-white border-gray-200">
-            <CardContent className="pt-6">
-              <div className="flex items-center">
-                <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">
-                    {activeCourses.length}
-                  </div>
-                  <div className="text-sm text-gray-600">Active Courses</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white border-gray-200">
-            <CardContent className="pt-6">
-              <div className="flex items-center">
-                <GraduationCap className="h-8 w-8 text-green-600 mr-3" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">
-                    {completedCourses.length}
-                  </div>
-                  <div className="text-sm text-gray-600">Completed</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white border-gray-200">
-            <CardContent className="pt-6">
-              <div className="flex items-center">
-                <FileText className="h-8 w-8 text-orange-600 mr-3" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">
-                    {activeCourses.reduce(
-                      (sum, course) => sum + course.assignments,
-                      0
-                    )}
-                  </div>
-                  <div className="text-sm text-gray-600">Pending Tasks</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-white border-gray-200">
-            <CardContent className="pt-6">
-              <div className="flex items-center">
-                <Clock className="h-8 w-8 text-purple-600 mr-3" />
-                <div>
-                  <div className="text-2xl font-bold text-gray-900">
-                    {
-                      activeCourses.filter((course) => course.upcomingTest)
-                        .length
-                    }
-                  </div>
-                  <div className="text-sm text-gray-600">Upcoming Tests</div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+        <SummarizeCards
+          activeCourses={activeCourses}
+          completedCourses={completedCourses}
+        />
 
         <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-lg w-fit">
           <button
