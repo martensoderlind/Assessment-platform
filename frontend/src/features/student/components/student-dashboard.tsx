@@ -1,4 +1,4 @@
-import StudentHeader from "./student-header";
+import StudentHeader from "../../components/student-header";
 import StudentWelcomeMessage from "./student-welcome-message";
 import StudentDashboardSidebar from "./student-dashboard-sidebar";
 import MyCourses from "./my-courses";
