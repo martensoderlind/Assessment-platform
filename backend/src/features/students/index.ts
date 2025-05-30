@@ -42,7 +42,6 @@ export function createStudentRouter(db: Db) {
   router.get("/students/:studentId/", async (req, res) => {
     const id = req.params.studentId;
     const student = await repository.getStudent(id);
-
     res.json(student);
   });
 

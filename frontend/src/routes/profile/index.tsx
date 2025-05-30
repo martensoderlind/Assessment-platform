@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import SchoolPlatformLanding from "../features/student/components/student-dashboard";
+import SchoolPlatformLanding from "../../features/student/components/student-dashboard";
 
-export const Route = createFileRoute("/my-profile")({
+export const Route = createFileRoute("/profile/")({
   component: RouteComponent,
 });
 

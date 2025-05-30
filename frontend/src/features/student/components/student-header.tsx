@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 import { Bell, GraduationCap, Search, Settings } from "lucide-react";
 
 export default function StudentHeader() {
@@ -17,30 +18,26 @@ export default function StudentHeader() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            >
-              My Courses
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            >
-              Schedule
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            >
-              Grades
-            </a>
-            <a
-              href="#"
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-            >
-              Messages
-            </a>
+            <Link to={"/profile/courses"}>
+              <p className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                My Courses
+              </p>
+            </Link>
+            <Link to={"/profile/schedule"}>
+              <p className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                Schedule
+              </p>
+            </Link>
+            <Link to={"/profile/grades"}>
+              <p className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                Grades
+              </p>
+            </Link>
+            <Link to={"/profile/messages"}>
+              <p className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                Messages
+              </p>
+            </Link>
           </nav>
 
           <div className="flex items-center space-x-4">

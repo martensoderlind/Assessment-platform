@@ -11,17 +11,15 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as MyProfileImport } from './routes/my-profile'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProfileIndexImport } from './routes/profile/index'
+import { Route as ProfileScheduleImport } from './routes/profile/schedule'
+import { Route as ProfileMessagesImport } from './routes/profile/messages'
+import { Route as ProfileGradesImport } from './routes/profile/grades'
+import { Route as ProfileCoursesImport } from './routes/profile/courses'
 
 // Create/Update Routes
-
-const MyProfileRoute = MyProfileImport.update({
-  id: '/my-profile',
-  path: '/my-profile',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const AboutRoute = AboutImport.update({
   id: '/about',
@@ -32,6 +30,36 @@ const AboutRoute = AboutImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileIndexRoute = ProfileIndexImport.update({
+  id: '/profile/',
+  path: '/profile/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileScheduleRoute = ProfileScheduleImport.update({
+  id: '/profile/schedule',
+  path: '/profile/schedule',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileMessagesRoute = ProfileMessagesImport.update({
+  id: '/profile/messages',
+  path: '/profile/messages',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileGradesRoute = ProfileGradesImport.update({
+  id: '/profile/grades',
+  path: '/profile/grades',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileCoursesRoute = ProfileCoursesImport.update({
+  id: '/profile/courses',
+  path: '/profile/courses',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,11 +81,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
-    '/my-profile': {
-      id: '/my-profile'
-      path: '/my-profile'
-      fullPath: '/my-profile'
-      preLoaderRoute: typeof MyProfileImport
+    '/profile/courses': {
+      id: '/profile/courses'
+      path: '/profile/courses'
+      fullPath: '/profile/courses'
+      preLoaderRoute: typeof ProfileCoursesImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile/grades': {
+      id: '/profile/grades'
+      path: '/profile/grades'
+      fullPath: '/profile/grades'
+      preLoaderRoute: typeof ProfileGradesImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile/messages': {
+      id: '/profile/messages'
+      path: '/profile/messages'
+      fullPath: '/profile/messages'
+      preLoaderRoute: typeof ProfileMessagesImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile/schedule': {
+      id: '/profile/schedule'
+      path: '/profile/schedule'
+      fullPath: '/profile/schedule'
+      preLoaderRoute: typeof ProfileScheduleImport
+      parentRoute: typeof rootRoute
+    }
+    '/profile/': {
+      id: '/profile/'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -68,41 +124,83 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/my-profile': typeof MyProfileRoute
+  '/profile/courses': typeof ProfileCoursesRoute
+  '/profile/grades': typeof ProfileGradesRoute
+  '/profile/messages': typeof ProfileMessagesRoute
+  '/profile/schedule': typeof ProfileScheduleRoute
+  '/profile': typeof ProfileIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/my-profile': typeof MyProfileRoute
+  '/profile/courses': typeof ProfileCoursesRoute
+  '/profile/grades': typeof ProfileGradesRoute
+  '/profile/messages': typeof ProfileMessagesRoute
+  '/profile/schedule': typeof ProfileScheduleRoute
+  '/profile': typeof ProfileIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/my-profile': typeof MyProfileRoute
+  '/profile/courses': typeof ProfileCoursesRoute
+  '/profile/grades': typeof ProfileGradesRoute
+  '/profile/messages': typeof ProfileMessagesRoute
+  '/profile/schedule': typeof ProfileScheduleRoute
+  '/profile/': typeof ProfileIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/my-profile'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/profile/courses'
+    | '/profile/grades'
+    | '/profile/messages'
+    | '/profile/schedule'
+    | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/my-profile'
-  id: '__root__' | '/' | '/about' | '/my-profile'
+  to:
+    | '/'
+    | '/about'
+    | '/profile/courses'
+    | '/profile/grades'
+    | '/profile/messages'
+    | '/profile/schedule'
+    | '/profile'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/profile/courses'
+    | '/profile/grades'
+    | '/profile/messages'
+    | '/profile/schedule'
+    | '/profile/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  MyProfileRoute: typeof MyProfileRoute
+  ProfileCoursesRoute: typeof ProfileCoursesRoute
+  ProfileGradesRoute: typeof ProfileGradesRoute
+  ProfileMessagesRoute: typeof ProfileMessagesRoute
+  ProfileScheduleRoute: typeof ProfileScheduleRoute
+  ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  MyProfileRoute: MyProfileRoute,
+  ProfileCoursesRoute: ProfileCoursesRoute,
+  ProfileGradesRoute: ProfileGradesRoute,
+  ProfileMessagesRoute: ProfileMessagesRoute,
+  ProfileScheduleRoute: ProfileScheduleRoute,
+  ProfileIndexRoute: ProfileIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -117,7 +215,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
-        "/my-profile"
+        "/profile/courses",
+        "/profile/grades",
+        "/profile/messages",
+        "/profile/schedule",
+        "/profile/"
       ]
     },
     "/": {
@@ -126,8 +228,20 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
-    "/my-profile": {
-      "filePath": "my-profile.tsx"
+    "/profile/courses": {
+      "filePath": "profile/courses.tsx"
+    },
+    "/profile/grades": {
+      "filePath": "profile/grades.tsx"
+    },
+    "/profile/messages": {
+      "filePath": "profile/messages.tsx"
+    },
+    "/profile/schedule": {
+      "filePath": "profile/schedule.tsx"
+    },
+    "/profile/": {
+      "filePath": "profile/index.tsx"
     }
   }
 }
