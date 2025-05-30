@@ -13,7 +13,7 @@ export type ActiveCourse = {
   unreadMessages: number;
 };
 
-export type completedCourse = {
+export type CompletedCourse = {
   id: number;
   code: string;
   title: string;
