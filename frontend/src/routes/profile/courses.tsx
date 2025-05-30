@@ -1,3 +1,4 @@
+import CoursesDashboard from "@/src/features/courses/components/coourses-dashboard";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/profile/courses")({
@@ -7,7 +8,7 @@ export const Route = createFileRoute("/profile/courses")({
 function ProfileCourses() {
   return (
     <div>
-      <h1>My Courses</h1>
+      <CoursesDashboard />
     </div>
   );
 }
