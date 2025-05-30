@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import CourseCard from "./course-card";
+import { Link } from "@tanstack/react-router";
 
 export default function MyCourses() {
   const Courses = [
@@ -35,9 +36,12 @@ export default function MyCourses() {
     <section>
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-semibold text-gray-900">My Courses</h3>
-        <Button variant="ghost" size="sm">
-          Show all <ChevronRight className="ml-1 h-4 w-4" />
-        </Button>
+        <Link to={"/profile/courses"}>
+          <div className="flex flex-row">
+            <span>Show all</span>
+            <ChevronRight className="ml-1 h-4 w-4" />
+          </div>
+        </Link>
       </div>
       <div className="grid md:grid-cols-2 gap-6">
         {Courses.map((course, index) => (
