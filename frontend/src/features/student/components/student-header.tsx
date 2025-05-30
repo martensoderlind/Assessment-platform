@@ -47,9 +47,9 @@ export default function StudentHeader() {
             <Button variant="ghost" size="sm">
               <Bell className="h-4 w-4" />
             </Button>
-            <Button variant="ghost" size="sm">
+            <Link to={"/profile/settings"}>
               <Settings className="h-4 w-4" />
-            </Button>
+            </Link>
             <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
               <span className="text-sm font-medium text-gray-700">AK</span>
             </div>

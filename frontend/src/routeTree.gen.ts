@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProfileIndexImport } from './routes/profile/index'
+import { Route as ProfileSettingsImport } from './routes/profile/settings'
 import { Route as ProfileScheduleImport } from './routes/profile/schedule'
 import { Route as ProfileMessagesImport } from './routes/profile/messages'
 import { Route as ProfileGradesImport } from './routes/profile/grades'
@@ -36,6 +37,12 @@ const IndexRoute = IndexImport.update({
 const ProfileIndexRoute = ProfileIndexImport.update({
   id: '/profile/',
   path: '/profile/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProfileSettingsRoute = ProfileSettingsImport.update({
+  id: '/profile/settings',
+  path: '/profile/settings',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -109,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileScheduleImport
       parentRoute: typeof rootRoute
     }
+    '/profile/settings': {
+      id: '/profile/settings'
+      path: '/profile/settings'
+      fullPath: '/profile/settings'
+      preLoaderRoute: typeof ProfileSettingsImport
+      parentRoute: typeof rootRoute
+    }
     '/profile/': {
       id: '/profile/'
       path: '/profile'
@@ -128,6 +142,7 @@ export interface FileRoutesByFullPath {
   '/profile/grades': typeof ProfileGradesRoute
   '/profile/messages': typeof ProfileMessagesRoute
   '/profile/schedule': typeof ProfileScheduleRoute
+  '/profile/settings': typeof ProfileSettingsRoute
   '/profile': typeof ProfileIndexRoute
 }
 
@@ -138,6 +153,7 @@ export interface FileRoutesByTo {
   '/profile/grades': typeof ProfileGradesRoute
   '/profile/messages': typeof ProfileMessagesRoute
   '/profile/schedule': typeof ProfileScheduleRoute
+  '/profile/settings': typeof ProfileSettingsRoute
   '/profile': typeof ProfileIndexRoute
 }
 
@@ -149,6 +165,7 @@ export interface FileRoutesById {
   '/profile/grades': typeof ProfileGradesRoute
   '/profile/messages': typeof ProfileMessagesRoute
   '/profile/schedule': typeof ProfileScheduleRoute
+  '/profile/settings': typeof ProfileSettingsRoute
   '/profile/': typeof ProfileIndexRoute
 }
 
@@ -161,6 +178,7 @@ export interface FileRouteTypes {
     | '/profile/grades'
     | '/profile/messages'
     | '/profile/schedule'
+    | '/profile/settings'
     | '/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -170,6 +188,7 @@ export interface FileRouteTypes {
     | '/profile/grades'
     | '/profile/messages'
     | '/profile/schedule'
+    | '/profile/settings'
     | '/profile'
   id:
     | '__root__'
@@ -179,6 +198,7 @@ export interface FileRouteTypes {
     | '/profile/grades'
     | '/profile/messages'
     | '/profile/schedule'
+    | '/profile/settings'
     | '/profile/'
   fileRoutesById: FileRoutesById
 }
@@ -190,6 +210,7 @@ export interface RootRouteChildren {
   ProfileGradesRoute: typeof ProfileGradesRoute
   ProfileMessagesRoute: typeof ProfileMessagesRoute
   ProfileScheduleRoute: typeof ProfileScheduleRoute
+  ProfileSettingsRoute: typeof ProfileSettingsRoute
   ProfileIndexRoute: typeof ProfileIndexRoute
 }
 
@@ -200,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProfileGradesRoute: ProfileGradesRoute,
   ProfileMessagesRoute: ProfileMessagesRoute,
   ProfileScheduleRoute: ProfileScheduleRoute,
+  ProfileSettingsRoute: ProfileSettingsRoute,
   ProfileIndexRoute: ProfileIndexRoute,
 }
 
@@ -219,6 +241,7 @@ export const routeTree = rootRoute
         "/profile/grades",
         "/profile/messages",
         "/profile/schedule",
+        "/profile/settings",
         "/profile/"
       ]
     },
@@ -239,6 +262,9 @@ export const routeTree = rootRoute
     },
     "/profile/schedule": {
       "filePath": "profile/schedule.tsx"
+    },
+    "/profile/settings": {
+      "filePath": "profile/settings.tsx"
     },
     "/profile/": {
       "filePath": "profile/index.tsx"
