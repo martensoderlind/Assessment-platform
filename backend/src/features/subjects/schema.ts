@@ -33,7 +33,7 @@ export const tests = pgTable("tests", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const studentMessage = pgTable("student_message", {
+export const studentMessages = pgTable("student_messages", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
