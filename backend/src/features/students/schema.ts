@@ -43,6 +43,7 @@ export const subjects = pgTable("subjects", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   name: varchar("name", { length: 100 }).notNull(),
+  code: varchar().notNull(),
 });
 
 export const lectures = pgTable("lectures", {
