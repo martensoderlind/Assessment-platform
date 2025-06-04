@@ -1,5 +1,12 @@
 // db/schema.ts
-import { pgTable, uuid, text, timestamp, varchar } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  uuid,
+  text,
+  timestamp,
+  varchar,
+  integer,
+} from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
 export const users = pgTable("users", {
@@ -44,6 +51,7 @@ export const subjects = pgTable("subjects", {
     .default(sql`gen_random_uuid()`),
   name: varchar("name", { length: 100 }).notNull(),
   code: varchar().notNull(),
+  credits: integer().notNull(),
 });
 
 export const lectures = pgTable("lectures", {
