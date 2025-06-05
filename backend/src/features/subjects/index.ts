@@ -55,6 +55,23 @@ export function createSubjectRouter(db: Db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  router.post("/subjects/:subjectId/lecture", async (req, res) => {
+    const { classId, teacherId, scheduledAt } = req.body;
+    const subjectId = req.params.subjectId;
+    if (!classId || !scheduledAt || !teacherId) {
+      res.status(400).json({ error: "student is required." });
+    }
+
+    try {
+      await repository.addLecture(classId, subjectId, teacherId, scheduledAt);
+      res.status(201).json({ message: "lecture added to subject" });
+    } catch (err: any) {
+      console.error("Failed to add lecture to subject:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
+
   router.patch("/subjects/:subjectId", async (req, res) => {
     const { studentId, status } = req.body;
     const subjectId = req.params.subjectId;

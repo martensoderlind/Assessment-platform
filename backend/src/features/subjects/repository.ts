@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { Db } from "../../db";
 import { and, eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
-import { enrolledSubjects, subjects } from "../students/schema";
+import { enrolledSubjects, lectures, subjects } from "../students/schema";
 
 export function createStudentRepository(db: Db) {
   return {
@@ -37,6 +37,19 @@ export function createStudentRepository(db: Db) {
       });
 
       return { enrolledSubjectId };
+    },
+    async addLecture(
+      classId: string,
+      subjectId: string,
+      scheduledAt: Date,
+      teacherId: string
+    ) {
+      await db.insert(lectures).values({
+        classId,
+        subjectId,
+        teacherId,
+        scheduledAt,
+      });
     },
     async updateEnrolledSubjectStatus(
       status: boolean,
