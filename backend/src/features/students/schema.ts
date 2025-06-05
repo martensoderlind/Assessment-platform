@@ -6,6 +6,7 @@ import {
   timestamp,
   varchar,
   integer,
+  boolean,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -19,6 +20,7 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+//class with students
 export const classes = pgTable("classes", {
   id: uuid("id")
     .primaryKey()
@@ -49,9 +51,22 @@ export const subjects = pgTable("subjects", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  name: varchar("name", { length: 100 }).notNull(),
+  name: varchar("name", { length: 100 }).notNull().unique(),
   code: varchar().notNull(),
   credits: integer().notNull(),
+});
+
+export const enrolledSubjects = pgTable("enrolled_subjects", {
+  id: uuid("id")
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  studentId: uuid("student_id")
+    .notNull()
+    .references(() => students.id),
+  subjectId: uuid("subject_id")
+    .notNull()
+    .references(() => subjects.id),
+  active: boolean("active").notNull().default(false),
 });
 
 export const lectures = pgTable("lectures", {
