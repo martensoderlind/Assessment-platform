@@ -33,6 +33,29 @@ export function createStudentRouter(db: Db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+  router.post("/teachers", async (req, res) => {
+    const { name, email, password, classId } = req.body;
+
+    if (!name || !email || !password) {
+      res.status(400).json({ error: "Name, Email and password are required." });
+    }
+
+    try {
+      const { userId } = await repository.addTeacher(
+        name,
+        email,
+        password,
+        classId
+      );
+      res.status(201).json({ userId });
+    } catch (err: any) {
+      if (err.code === "23505") {
+        res.status(409).json({ error: "Email already in use." });
+      }
+      console.error("Failed to create teacher:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
   router.get("/students", async (req, res) => {
     const students = await repository.getAllStudents();

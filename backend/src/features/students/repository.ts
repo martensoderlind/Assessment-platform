@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { Db } from "../../db";
-import { students, users } from "./schema";
+import { students, teachers, users } from "./schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 
@@ -42,6 +42,32 @@ export function createStudentRepository(db: Db) {
       });
 
       return { userId, studentId };
+    },
+    async addTeacher(
+      email: string,
+      name: string,
+      plainPassword: string,
+      classId?: string
+    ) {
+      const userId = randomUUID();
+      const teacherId = randomUUID();
+      const passwordHash = await bcrypt.hash(plainPassword, 10);
+
+      await db.transaction(async (tx) => {
+        await tx.insert(users).values({
+          id: userId,
+          email,
+          name,
+          passwordHash,
+        });
+
+        await tx.insert(teachers).values({
+          id: teacherId,
+          userId,
+        });
+      });
+
+      return { userId, teacherId };
     },
   };
 }
