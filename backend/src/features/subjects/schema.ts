@@ -15,7 +15,11 @@ export const assignments = pgTable("assignments", {
   subjectId: uuid("subject_id")
     .notNull()
     .references(() => subjects.id),
+  studentId: uuid("student_id")
+    .notNull()
+    .references(() => students.id),
   topic: varchar().notNull(),
+  completed: boolean("completed").notNull().default(false),
   scheduledAt: timestamp("scheduled_at").notNull(),
   endDate: timestamp("end_at").notNull(),
   createdAt: timestamp("created_at").defaultNow(),

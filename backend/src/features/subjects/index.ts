@@ -84,7 +84,6 @@ export function createSubjectRouter(db: Db) {
     if (!studentId || !status) {
       res.status(400).json({ error: "student & status is required." });
     }
-
     try {
       await repository.updateEnrolledSubjectStatus(
         status,
