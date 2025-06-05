@@ -118,6 +118,21 @@ export function createSubjectRouter(db: Db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+  router.patch("/subjects/:subjectId/assignments", async (req, res) => {
+    const { assignmentId, completed } = req.body;
+    if (!assignmentId || !completed) {
+      res
+        .status(400)
+        .json({ error: "a valid student and a completed status is required." });
+    }
+    try {
+      await repository.updateCompletedStatus(assignmentId, completed);
+      res.status(201).json({ message: "Assignment status updated" });
+    } catch (err: any) {
+      console.error("Failed to update status of assignment:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 
   return router;
 }

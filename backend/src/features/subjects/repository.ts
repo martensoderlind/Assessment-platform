@@ -87,5 +87,13 @@ export function createStudentRepository(db: Db) {
           )
         );
     },
+    async updateCompletedStatus(assignmentId: string, status: boolean) {
+      await db
+        .update(assignments)
+        .set({
+          completed: status,
+        })
+        .where(eq(assignments.id, assignmentId));
+    },
   };
 }
