@@ -1,8 +1,8 @@
 import { randomUUID } from "crypto";
 import { Db } from "../../db";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
-import { subjects } from "../students/schema";
+import { enrolledSubjects, subjects } from "../students/schema";
 
 export function createStudentRepository(db: Db) {
   return {
@@ -27,6 +27,33 @@ export function createStudentRepository(db: Db) {
       });
 
       return { subjectId };
+    },
+    async addStudentToEnrolledSubjects(studentId: string, subjectId: string) {
+      const enrolledSubjectId = randomUUID();
+      await db.insert(enrolledSubjects).values({
+        id: enrolledSubjectId,
+        studentId,
+        subjectId,
+      });
+
+      return { enrolledSubjectId };
+    },
+    async updateEnrolledSubjectStatus(
+      status: boolean,
+      studentId: string,
+      subjectId: string
+    ) {
+      await db
+        .update(enrolledSubjects)
+        .set({
+          active: status,
+        })
+        .where(
+          and(
+            eq(enrolledSubjects.studentId, studentId),
+            eq(enrolledSubjects.subjectId, subjectId)
+          )
+        );
     },
   };
 }

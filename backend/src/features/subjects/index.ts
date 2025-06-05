@@ -7,6 +7,17 @@ export function createSubjectRouter(db: Db) {
   const repository = createStudentRepository(db);
   const router = express.Router();
 
+  router.get("/subjects", async (req, res) => {
+    const subjects = await repository.getAllSubjects();
+    res.json(subjects);
+  });
+
+  router.get("/subjects/:subjectId/", async (req, res) => {
+    const id = req.params.subjectId;
+    const subject = await repository.getSubject(id);
+    res.json(subject);
+  });
+
   router.post("/subjects", async (req, res) => {
     const { name, credits } = req.body;
     if (!name || !credits) {
@@ -25,16 +36,46 @@ export function createSubjectRouter(db: Db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+  router.post("/subjects/:subjectId", async (req, res) => {
+    const { studentId } = req.body;
+    const subjectId = req.params.subjectId;
+    if (!studentId) {
+      res.status(400).json({ error: "student is required." });
+    }
 
-  router.get("/subjects", async (req, res) => {
-    const subjects = await repository.getAllSubjects();
-    res.json(subjects);
+    try {
+      const { enrolledSubjectId } =
+        await repository.addStudentToEnrolledSubjects(studentId, subjectId);
+      res.status(201).json({ enrolledSubjectId });
+    } catch (err: any) {
+      if (err.code === "23505") {
+        res.status(409).json({ error: "student already enrolled in subject." });
+      }
+      console.error("Failed to add student to subject:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
+  router.patch("/subjects/:subjectId", async (req, res) => {
+    const { studentId, status } = req.body;
+    const subjectId = req.params.subjectId;
+    if (!studentId || !status) {
+      res.status(400).json({ error: "student & status is required." });
+    }
 
-  router.get("/subjects/:subjectId/", async (req, res) => {
-    const id = req.params.subjectId;
-    const subject = await repository.getSubject(id);
-    res.json(subject);
+    try {
+      await repository.updateEnrolledSubjectStatus(
+        status,
+        studentId,
+        subjectId
+      );
+      res.status(201).json({ message: "status updated" });
+    } catch (err: any) {
+      if (err.code === "23505") {
+        res.status(409).json({ error: "student already enrolled in subject." });
+      }
+      console.error("Failed to add student to subject:", err);
+      res.status(500).json({ error: "Internal server error" });
+    }
   });
 
   return router;
