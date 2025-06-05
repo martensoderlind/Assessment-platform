@@ -6,9 +6,9 @@ export type Student = {
 export const Codes = {
   Svenska: "Sv",
   Engelska: "Eng",
-  Mattematik: "Ma",
+  Matematik: "Ma",
   Naturkunskap: "No",
   Kemi: "Ke",
   Fysik: "Fy",
-  "Indrott & hälsa": "IH",
+  "Idrott & hälsa": "IH",
 };

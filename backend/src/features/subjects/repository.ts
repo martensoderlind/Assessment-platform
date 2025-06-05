@@ -1,7 +1,7 @@
 import { randomUUID } from "crypto";
 import { Db } from "../../db";
 import { and, eq } from "drizzle-orm";
-import { enrolledSubjects, lectures, subjects } from "../students/schema";
+import { assignments, enrolledSubjects, lectures, subjects } from "./schema";
 
 export function createStudentRepository(db: Db) {
   return {
@@ -51,6 +51,23 @@ export function createStudentRepository(db: Db) {
         scheduledAt: date,
         topic: topic || undefined,
         lectureType,
+      });
+    },
+    async addAssignment(
+      subjectId: string,
+      studentId: string,
+      scheduledAt: Date,
+      endAt: Date,
+      topic: string
+    ) {
+      const startDate = new Date(scheduledAt);
+      const endDate = new Date(endAt);
+      await db.insert(assignments).values({
+        subjectId,
+        studentId,
+        scheduledAt: startDate,
+        endDate,
+        topic,
       });
     },
     async updateEnrolledSubjectStatus(
