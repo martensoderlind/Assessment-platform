@@ -37,7 +37,6 @@ export function createStudentRepository(db: Db) {
         await tx.insert(students).values({
           id: studentId,
           userId,
-          classId: classId ?? null,
         });
       });
 
