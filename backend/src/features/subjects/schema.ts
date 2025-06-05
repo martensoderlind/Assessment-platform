@@ -21,18 +21,6 @@ export const assignments = pgTable("assignments", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const tests = pgTable("tests", {
-  id: uuid("id")
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  subjectId: uuid("subject_id")
-    .notNull()
-    .references(() => subjects.id),
-  topic: varchar().notNull(),
-  scheduledAt: timestamp("created_at").notNull(),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
 export const studentMessages = pgTable("student_messages", {
   id: uuid("id")
     .primaryKey()

@@ -35,7 +35,6 @@ export const students = pgTable("students", {
   userId: uuid("user_id")
     .notNull()
     .references(() => users.id),
-  classId: uuid("class_id").references(() => classes.id),
 });
 
 export const teachers = pgTable("teachers", {
@@ -73,14 +72,14 @@ export const lectures = pgTable("lectures", {
   id: uuid("id")
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  classId: uuid("class_id")
-    .notNull()
-    .references(() => classes.id),
   subjectId: uuid("subject_id")
     .notNull()
     .references(() => subjects.id),
   teacherId: uuid("teacher_id")
     .notNull()
     .references(() => teachers.id),
+  topic: varchar().default(""),
   scheduledAt: timestamp("scheduled_at").notNull(),
+  lectureType: varchar().notNull().default("Lecture"),
+  createdAt: timestamp("created_at").defaultNow(),
 });

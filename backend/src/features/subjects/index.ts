@@ -57,14 +57,20 @@ export function createSubjectRouter(db: Db) {
   });
 
   router.post("/subjects/:subjectId/lecture", async (req, res) => {
-    const { classId, teacherId, scheduledAt } = req.body;
+    const { teacherId, scheduledAt, lectureType, topic } = req.body;
     const subjectId = req.params.subjectId;
-    if (!classId || !scheduledAt || !teacherId) {
-      res.status(400).json({ error: "student is required." });
+    if (!scheduledAt || !teacherId) {
+      res.status(400).json({ error: "a time and a teacher is required." });
     }
-
+    console.log(teacherId, scheduledAt, lectureType, topic);
     try {
-      await repository.addLecture(classId, subjectId, teacherId, scheduledAt);
+      await repository.addLecture(
+        subjectId,
+        scheduledAt,
+        teacherId,
+        lectureType,
+        topic
+      );
       res.status(201).json({ message: "lecture added to subject" });
     } catch (err: any) {
       console.error("Failed to add lecture to subject:", err);
